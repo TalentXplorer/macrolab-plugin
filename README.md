@@ -8,9 +8,10 @@ Claude Code, Codex and ChatGPT two things at once:
 
 - the **Macro Lab MCP server** (`https://macrolab.kr/mcp`, read-only, members only — OAuth): `list_datasets`, `search_variables`, `describe_variable`,
   `get_series`, `get_daily`, `latest`, `compute` (statistics computed on the server: changes, correlations, regressions, event windows),
-  `get_decisions` (Bank of Korea and FOMC rate decisions since 2001, holds included), and resources (`macrolab://dictionary.json`, `macrolab://series/<id>.csv`);
-- the **macrolab-data skill**: how to pull the files (`scripts/pull.py`, standard library only), how to read each column (unit, nature,
-  explanatory-only series, index twins, coverage, licence) and how to report a result without over-claiming.
+  `get_decisions` (Bank of Korea and FOMC rate decisions since 2001, holds included), `find_apartments` and `get_apartment_trades` (국토교통부 apartment
+  sales of each Seoul complex since 2006: medians per month and size type, the latest sales), and resources (`macrolab://dictionary.json`, `macrolab://series/<id>.csv`);
+- the **macrolab-data skill**: which tool to call for what, how to read each series (unit, nature, explanatory-only series, index twins,
+  coverage, licence) and how to report a result without over-claiming.
 
 ## Install
 
@@ -40,36 +41,22 @@ codex mcp add macrolab --url https://macrolab.kr/mcp
 Claude app (web, desktop, mobile): Customize → Connectors → Add custom connector → `https://macrolab.kr/mcp` → Add → sign in to Macro Lab →
 Allow. Members find every route, with one-click links, under 「AI 연결」 in the header of https://macrolab.kr.
 
-## Files only (no plugin)
-
-The files need a 연결 키 (a bearer token, valid a year): sign in at https://macrolab.kr, press 「AI 연결」 in the header, 「연결 키 만들기」.
-
-```
-curl -sL -H "Authorization: Bearer $MACROLAB_TOKEN" https://macrolab.kr/data/manifest.json   # what exists, immutable file URLs
-MACROLAB_TOKEN=<key> python3 skills/macrolab-data/scripts/pull.py                            # → ./.macrolab/panel.csv, dictionary.json, daily.csv, README.md
-```
-
-Stable addresses: `https://macrolab.kr/data/latest/panel.csv` (redirects to the current version) — send the same header from DuckDB (`httpfs`
-bearer secret) or pandas.
-
 ## What this plugin runs, sends and fetches
 
 Nothing runs at install. The plugin adds two things to your agent:
 
 - an **MCP server entry** for `https://macrolab.kr/mcp`: your agent sends JSON-RPC requests there (tool names and their arguments — variable
-  ids, date windows) and receives public macro data back. The first call answers 401 with the server's OAuth discovery document; your agent
+  ids, date windows, an apartment complex's name) and receives public macro data back. The first call answers 401 with the server's OAuth discovery document; your agent
   then opens a browser window where you sign in to Macro Lab and allow the connection, and keeps the access and refresh tokens it is given
   (the server stores nothing about the connection). No cookie, no personal data in the requests; the server logs the request line (address,
   path, status), the client's name at `initialize` and the tool names, never the arguments and never who you are.
-- a **skill** (`skills/macrolab-data/SKILL.md`) with one script, `scripts/pull.py`, that your agent runs only when you ask it to pull the files:
-  it fetches `https://macrolab.kr/data/manifest.json` and the files it lists with your 연결 키 (`MACROLAB_TOKEN` or `--token`) in the
-  Authorization header, verifies them by sha256 and writes them to a cache folder (`./.macrolab` by default, `MACROLAB_CACHE` or `--dir`
-  otherwise) with a `.gitignore`. Standard library only, no other host is contacted, nothing is sent except the GET requests and that header.
+- a **skill** (`skills/macrolab-data/SKILL.md`): text only — how to read the data and report a result. It runs nothing and contacts nothing.
 
-No hooks, no executables, no credentials, no third-party packages.
+No scripts, no hooks, no executables, no credentials, no third-party packages. The data comes as capped answers to tool calls; there is no
+bulk download.
 
 ## Licence
 
-Plugin code: MIT. Data: public-domain and attribution-licence series only; the attribution lines are in `dictionary.json` and the
-snapshot's `README.md` — print them under a published chart or table. Series whose owner restricts redistribution are not served.
+Plugin code: MIT. Data: public-domain and attribution-licence series only; each series carries its attribution line (`licence.attribution`
+in `search_variables`, `describe_variable` and `macrolab://dictionary.json`) — print it under a published chart or table. Series whose owner restricts redistribution are not served.
 Nothing here is investment advice. Macro Lab's models, rules and track record are not part of the data.
