@@ -72,7 +72,10 @@ month-end close); `kr_apt_*` 실거래 columns are contract-based with compositi
 
 Apartment sales by complex (`get_apartment_trades`):
 
-- 매매 only and brokered: cancelled (해제) and direct (직거래) deals are left out, as in the panel's `kr_apt_*` columns. Seoul's 25 districts, 2006-01 on.
+- 매매 only, cancelled (해제) deals left out; Seoul's 25 districts, 2006-01 on. Each listed sale says `deal`: brokered (중개거래) or direct
+  (직거래) — the portal marks it from 2021-11 on, so earlier sales have none. Without `deal` the table counts brokered sales (unmarked ones
+  included, as the panel's `kr_apt_*` columns do) and the list shows every sale; `deal: direct` or `all` when the question is about 직거래.
+  직거래 are often between relatives and below the market: never read one as the complex's price, and say which kind a number is.
 - `area` is the exclusive area (전용면적) cut to a whole ㎡ — 84 = 84.00–84.99㎡, the type sold as 34평 — never the supply area (공급면적). Prices are
   in 만원 (10,000 KRW), nominal; `ppsm` is the median 만원 per ㎡ of exclusive area.
 - A month's median is the median of that month's sales: a few sales, or a different floor or size mix, move it. Read a trend by quarter or year
