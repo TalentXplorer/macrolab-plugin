@@ -1,0 +1,30 @@
+{
+  "name": "macrolab",
+  "displayName": "Macro Lab",
+  "version": "1.1.0",
+  "description": "Korean and US macro data from macrolab.kr for your AI: 200+ monthly series since 2001 (rates, prices, growth, money, credit, FX, stocks, commodities, housing, sentiment, AI) plus daily twins, as files to pull or MCP tools, with a guide on reading them right.",
+  "author": {
+    "name": "Macro Lab",
+    "url": "https://macrolab.kr"
+  },
+  "homepage": "https://macrolab.kr/ai.html",
+  "repository": "https://github.com/TalentXplorer/macrolab-plugin",
+  "license": "MIT",
+  "keywords": [
+    "macro",
+    "economics",
+    "korea",
+    "bok",
+    "ecos",
+    "fred",
+    "interest-rates",
+    "inflation",
+    "housing",
+    "data"
+  ],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://macrolab.kr/ai.html",
+  "supportUrl": "https://macrolab.kr/ai.html",
+  "privacyPolicyUrl": "https://macrolab.kr/privacy.html",
+  "termsOfServiceUrl": "https://macrolab.kr/terms.html"
+}

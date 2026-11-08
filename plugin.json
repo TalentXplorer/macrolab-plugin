@@ -1,0 +1,43 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "macrolab",
+  "version": "1.1.0",
+  "description": "Korean and US macro data from macrolab.kr for your AI: 200+ monthly series since 2001 (rates, prices, growth, money, credit, FX, stocks, commodities, housing, sentiment, AI) plus daily twins, as files to pull or MCP tools, with a guide on reading them right.",
+  "author": {
+    "name": "Macro Lab",
+    "url": "https://macrolab.kr"
+  },
+  "homepage": "https://macrolab.kr/ai.html",
+  "repository": "https://github.com/TalentXplorer/macrolab-plugin",
+  "license": "MIT",
+  "keywords": [
+    "macro",
+    "economics",
+    "korea",
+    "bok",
+    "ecos",
+    "fred",
+    "interest-rates",
+    "inflation",
+    "housing",
+    "data"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Macro Lab",
+        "shortDescription": "한국·미국 거시경제 데이터를 AI로 직접 분석",
+        "longDescription": "Macro Lab (macrolab.kr) opens its public-licence macro data to its members' AI agents (membership is free; the server signs you in once through OAuth): 200+ monthly series for Korea, the US and global markets since 2001 (ECOS, FRED, R-ONE, 국토교통부 실거래가) plus public daily twins. Read-only MCP tools (search, series, daily, latest) and a skill that explains how to read each column, which unit and benchmark apply, and how to report a relationship without over-claiming. Models, forecasts and the track record of Macro Lab are not part of the data.",
+        "developerName": "Macro Lab",
+        "category": "Data",
+        "websiteURL": "https://macrolab.kr/ai.html",
+        "privacyPolicyURL": "https://macrolab.kr/privacy.html",
+        "termsOfServiceURL": "https://macrolab.kr/terms.html",
+        "defaultPrompt": "Using Macro Lab data, chart Korean 3-year KTB yields against the US 2-year yield since 2020 and say what moved first.",
+        "supportURL": "https://macrolab.kr/ai.html",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    }
+  }
+}

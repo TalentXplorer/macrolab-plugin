@@ -1,0 +1,20 @@
+{
+  "name": "macrolab",
+  "owner": {
+    "name": "Macro Lab",
+    "url": "https://macrolab.kr"
+  },
+  "metadata": {
+    "description": "Macro Lab open data for AI agents"
+  },
+  "plugins": [
+    {
+      "name": "macrolab",
+      "source": "./",
+      "description": "Korean and US macro data (macrolab.kr): MCP tools + a skill on reading the data right",
+      "version": "1.1.0",
+      "category": "data",
+      "homepage": "https://macrolab.kr/ai.html"
+    }
+  ]
+}

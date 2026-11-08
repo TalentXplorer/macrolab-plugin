@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "macrolab": {"type": "http", "url": "https://macrolab.kr/mcp"}
+  }
+}
