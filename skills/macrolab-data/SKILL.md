@@ -6,7 +6,7 @@ description: Analyse Korean and US macro data from Macro Lab (macrolab.kr) — i
 # Macro Lab data
 
 Macro Lab (macrolab.kr) collects Korean and US macro series from ECOS (한국은행), FRED, 한국부동산원 (R-ONE) and 국토교통부 실거래가,
-and opens the **public-licence part** of it to its members' AI agents through its MCP server (membership is free; the server signs the
+and opens the **public-licence part** of it to its members' AI agents through its MCP server (the server signs the
 member in through OAuth the first time an agent connects). This skill tells you how to get the data, how to read each series without
 misreading it, and how to report what you find.
 
@@ -23,7 +23,7 @@ redistribution (Nasdaq, Cboe VIX, Moody's, Coinbase, U. Michigan, individual sto
 ## 1. Get the data
 
 Use the MCP tools in this order — `list_datasets` (what exists, the rules, the daily ids) → `search_variables` (ids by Korean or English
-words, group or country) → `get_series` for monthly values, `get_daily` for daily twins, `latest` for "지금", `describe_variable` for one
+words, group or country; when no variable holds your words it tries related ones and its `hint` says what to try next) → `get_series` for monthly values, `get_daily` for daily twins, `latest` for "지금", `describe_variable` for one
 series in full. Every call is capped (12 ids × 600 months, 8000 cells; 8 daily ids × 600 rows), so ask for the window the question needs:
 the last 120 months by default, `from`/`to` or `last` to move. The resources `macrolab://dictionary.json` (every series' entry) and
 `macrolab://series/<id>.csv` (one series' history) give one piece at a time.
@@ -38,7 +38,8 @@ the dates every requested series has.
 One Seoul apartment complex: `find_apartments` (part of the name in Korean — 은마, 헬리오시티, 잠실주공5단지; or a 구 / 법정동 alone for that
 area's most traded complexes) gives its id, the 동, the year built and the size types sold; `get_apartment_trades` (the id; `area` = one size
 type, `from`/`to`, `period` month · quarter · year, `sales` = how many of the latest individual sales to list, 0–200) gives the table and the
-latest sales. Two complexes are two calls — compare the same size type.
+latest sales. To compare complexes, pass up to ten in `ids` instead of `id`: one table and one sales list with an id column (3 latest sales
+each unless `sales` says otherwise) — compare the same size type.
 
 If you can run code (Claude Code, Codex, a notebook), keep what a tool answered in a local file for the session and calculate there when
 `compute` does not cover it — fetch the series and the window the question needs, not the whole panel. If the server answers 401, the user

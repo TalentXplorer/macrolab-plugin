@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "macrolab",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Korean and US macro data from macrolab.kr for your AI: 200+ monthly series since 2001 (rates, prices, growth, money, credit, FX, stocks, commodities, housing, sentiment, AI), daily twins and Seoul apartment sales by complex since 2006, as read-only MCP tools, with a guide on reading them right.",
   "author": {
     "name": "Macro Lab",
@@ -28,9 +28,9 @@
       "interface": {
         "displayName": "Macro Lab",
         "shortDescription": "한국·미국 거시경제 데이터를 AI로 직접 분석",
-        "longDescription": "Macro Lab (macrolab.kr) opens its public-licence macro data to its members' AI agents (membership is free; the server signs you in once through OAuth): 200+ monthly series for Korea, the US and global markets since 2001 (ECOS, FRED, R-ONE, 국토교통부 실거래가) plus public daily twins and the 국토교통부 apartment sales of every Seoul complex since 2006. Read-only MCP tools (search, series, daily, latest, statistics, rate decisions, apartment complexes) and a skill that explains how to read each column, which unit and benchmark apply, and how to report a relationship without over-claiming. Models, forecasts and the track record of Macro Lab are not part of the data.",
+        "longDescription": "Macro Lab (macrolab.kr) opens its public-licence macro data to its members' AI agents (the server signs you in once through OAuth): 200+ monthly series for Korea, the US and global markets since 2001 (ECOS, FRED, R-ONE, 국토교통부 실거래가) plus public daily twins and the 국토교통부 apartment sales of every Seoul complex since 2006. Read-only MCP tools (search, series, daily, latest, statistics, rate decisions, apartment complexes) and a skill that explains how to read each column, which unit and benchmark apply, and how to report a relationship without over-claiming. Models, forecasts and the track record of Macro Lab are not part of the data.",
         "developerName": "Macro Lab",
-        "category": "Data",
+        "category": "Data & Analytics",
         "websiteURL": "https://macrolab.kr/ai.html",
         "privacyPolicyURL": "https://macrolab.kr/privacy.html",
         "termsOfServiceURL": "https://macrolab.kr/terms.html",
@@ -38,6 +38,61 @@
         "supportURL": "https://macrolab.kr/ai.html",
         "logo": "./assets/icon.png",
         "composerIcon": "./assets/icon.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Latest values: finds the ids, then reads the most recent value of each.",
+              "prompt": "Using Macro Lab, what are Korea's base rate, the 91-day CD rate and the won-dollar exchange rate right now?",
+              "tools_triggered": "search_variables, latest",
+              "expected_behavior": "Returns the latest monthly value of each series with its month and unit (%, won per dollar) and, where a daily series exists, the latest daily value with its date. No figure is given that the tools did not return."
+            },
+            {
+              "description": "Monthly series over a chosen window.",
+              "prompt": "Using Macro Lab, show Korea's 3-year treasury bond yield and the US 2-year Treasury yield monthly since January 2020, and say which one moved first.",
+              "tools_triggered": "search_variables, get_series",
+              "expected_behavior": "Returns a monthly table of both yields (%) from 2020-01 to the latest month and describes the moves in percentage points or basis points. Any lead or lag is reported as an observed pattern, not as a cause."
+            },
+            {
+              "description": "Statistics computed on the server: an event study around central-bank decisions.",
+              "prompt": "Using Macro Lab, how does Korea's 3-year treasury bond yield move on average in the 10 business days after the Bank of Korea keeps its rate on hold, since 2015?",
+              "tools_triggered": "compute",
+              "expected_behavior": "Calls compute with the Bank of Korea decision dates (hold only) on the daily 3-year yield and reports the average cumulative change in basis points for each day of the window, with the number of decisions and t-statistics. It says these are averages, not a forecast."
+            },
+            {
+              "description": "Central-bank decision table, past and scheduled meetings.",
+              "prompt": "Using Macro Lab, list this year's FOMC rate decisions and tell me when the next meeting is.",
+              "tools_triggered": "get_decisions",
+              "expected_behavior": "Returns each 2026 FOMC meeting with its date, decision (hike, cut or hold), the change in basis points and the target range after it, then names the next scheduled meeting date from the table."
+            },
+            {
+              "description": "Seoul apartment sales by complex: find the complex, then its sales.",
+              "prompt": "Using Macro Lab, show the yearly median sale price of 84㎡ units at 은마 apartment in Daechi-dong, Gangnam since 2010, and the 5 latest sales.",
+              "tools_triggered": "find_apartments, get_apartment_trades",
+              "expected_behavior": "Finds 은마 (강남구 대치동, built 1979), then returns a yearly table for the 84㎡ type since 2010 (number of sales, median price in 10,000 won, median price per m², low and high) and the 5 latest sales with date, area, floor, price and deal type (brokered or direct). It notes that the latest months are still being reported."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Single-company share prices are out of scope: Macro Lab holds macro series and market indices, not individual stock quotes. The app should not be invoked.",
+              "prompt": "What is Samsung Electronics' share price right now?"
+            },
+            {
+              "description": "Cryptocurrency prices are out of scope: Macro Lab carries no crypto series. The app should not be invoked.",
+              "prompt": "What is the price of Bitcoin today?"
+            },
+            {
+              "description": "Rental listings are out of scope: Macro Lab holds recorded apartment sales, not listings of homes for rent. The app should not be invoked.",
+              "prompt": "Find me a two-room apartment for rent near Gangnam Station under 1 million won a month."
+            }
+          ]
+        },
+        "demo_recording_url": "https://youtu.be/BkGAvD-9Y-Y",
+        "commerce": false
+      },
+      "publication": {
+        "release_notes": "1.4.0: get_apartment_trades compares up to ten complexes in one call (ids); search_variables also tries related Korean and English words and says what to try next; the server speaks MCP 2026-07-28 besides 2025-11-25."
       }
     }
   }

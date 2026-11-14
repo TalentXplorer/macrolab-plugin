@@ -1,6 +1,6 @@
 {
   "name": "macrolab",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Korean and US macro data from macrolab.kr for your AI: 200+ monthly series since 2001 (rates, prices, growth, money, credit, FX, stocks, commodities, housing, sentiment, AI), daily twins and Seoul apartment sales by complex since 2006, as read-only MCP tools, with a guide on reading them right.",
   "author": {
     "name": "Macro Lab",
@@ -27,9 +27,9 @@
   "interface": {
     "displayName": "Macro Lab",
     "shortDescription": "한국·미국 거시경제 데이터를 AI로 직접 분석",
-    "longDescription": "Macro Lab (macrolab.kr) opens its public-licence macro data to its members' AI agents (membership is free; the server signs you in once through OAuth): 200+ monthly series for Korea, the US and global markets since 2001 (ECOS, FRED, R-ONE, 국토교통부 실거래가) plus public daily twins and the 국토교통부 apartment sales of every Seoul complex since 2006. Read-only MCP tools (search, series, daily, latest, statistics, rate decisions, apartment complexes) and a skill that explains how to read each column, which unit and benchmark apply, and how to report a relationship without over-claiming. Models, forecasts and the track record of Macro Lab are not part of the data.",
+    "longDescription": "Macro Lab (macrolab.kr) opens its public-licence macro data to its members' AI agents (the server signs you in once through OAuth): 200+ monthly series for Korea, the US and global markets since 2001 (ECOS, FRED, R-ONE, 국토교통부 실거래가) plus public daily twins and the 국토교통부 apartment sales of every Seoul complex since 2006. Read-only MCP tools (search, series, daily, latest, statistics, rate decisions, apartment complexes) and a skill that explains how to read each column, which unit and benchmark apply, and how to report a relationship without over-claiming. Models, forecasts and the track record of Macro Lab are not part of the data.",
     "developerName": "Macro Lab",
-    "category": "Data",
+    "category": "Data & Analytics",
     "websiteURL": "https://macrolab.kr/ai.html",
     "privacyPolicyURL": "https://macrolab.kr/privacy.html",
     "termsOfServiceURL": "https://macrolab.kr/terms.html",
